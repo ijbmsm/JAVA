@@ -297,4 +297,75 @@ return 리턴값;
 + 리턴값이 있는 메소드
    + 메소드 선언에 리턴 타입이 있는 메소드는 반드시 리턴(return)문을 사용해서 위와 같이 리턴값을 지정해야 한다.
    + 리턴문의 리턴값은 리턴 타입이거나 리턴타입으로 변환될 수 있어야 한다.
-   + 
+   + 리턴문 이후의 실행문은 실행되지 않는다(조건문에 따라 올 수도 있음)
+```java
+return;
+```
++ 리턴값이 없는 메소드(void)
+   + void로 선언된 리턴값이 없는 메소드에서도 return문을 사용할 수 있다. 
+   + 위와 같이 return문을 사용하면 메소드 실행을 강제 종료시킨다.
++ 메소드 호출
+  + 클래스 내부에서 호출할 경우엔 단순한 메소드 이름으로 호출할 수 있지만 외부에서 호출할 경우에는 클래스로부터 객체를 생성한 뒤, 참조 변수를 이용하여 메소드를 호출해야 한다.
+  
++ 메소드 내부에서의 호출
+``` java
+void method1(String p1, int p2) {
+}
+
+void method2() {
+   method1("홍길동", 100); //
+}
+```
+
++ 객체 외부에서 호출
+   + 외부 클래스에서 메소드를 호출하기 위해서 클래스로부터 객체를 생성해야 한다.
+   + 객체가 생성되었다면 참조 변수와 함께 도트(.) 연산자를 사용해서 메소드를 호출할 수 있다.
+``` java
+public class Car{
+int speed; //필드
+
+// 생성자(생략하면 기본생성자 선언됨)
+
+int getSpeed() { 
+ return speed;      //메소드
+}
+
+void keyTurnOn() {
+ System.out.println("키를 돌립니다.");
+}
+
+void run() {
+  for(int i = 10; i<=50; i+=10) {
+    speed = i;
+    System.out.println("달립니다.(시속:" + speed + " km/h)");
+    }
+  }
+}
+
+public class CarExample{
+   public static void main(String[] args){
+      Car myCar = new Car();    // 위의 Car클래스로부터 객체 생성
+      myCar.keyTurnOn();        // "키를 돌립니다" 출력
+      myCar.run();
+      int speed = myCar.getSpeed() ;
+      System.out.println("현재 속도 :" + speed + "km/h");
+   }
+}
+```
+
+#### 메소드 오버로딩 
+``` java
+int a = 10;
+double b = 20.3;
+plus(a, b);
+
+double plus(double x, double y) {
+   double result = x + y;
+   return result;
+```
++ 클래스 내에 같은 이름의 메소드를 여러 개 선언하는 것을 메소드 오버로딩이라고 한다. 
++ 메소드 오버로딩의 조건은 매개 변수의 타입, 개수, 순서중 하나가 달라야 한다.
++ 메소드 오버로딩은 매개값을 다양하게 받아 처리할 수 있도록 사용한다.
++ 오버로딩된 메소드를 호출할 경우 JVM은 매개값의 타입을 보고 메소드를 선택한다.
++ 위의 코딩처럼 매개변수의 타입이 다를 경우 JVM은 자동 타입 변환이 가능한지 확인하고 가능하다면 컴파일 오류가 나지 않고 정상적으로 작동한다.
++ 리턴타입만 다르면 오버로딩이 아니다.
